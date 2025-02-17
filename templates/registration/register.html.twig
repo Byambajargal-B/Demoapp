@@ -1,0 +1,40 @@
+{% extends 'security.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	{% if not app.user %}
+		<div class="w-4/5 m-auto text-center">
+			<div class="py-12 border-b border-gray-200">
+				<h1 class="text-6xl pt-12 pb-8">
+					Register
+				</h1>
+
+				{{ form_start(registrationForm) }}
+				{{ form_row(registrationForm.email) }}
+				{{ form_row(registrationForm.plainPassword) }}
+
+				{{ form_row(registrationForm.agreeTerms) }}
+
+				<button type="submit" class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg w-1/5 mt-10 font-extrabold py-4 px-8 rounded-3xl">
+					Register
+				</button>
+
+				{{ form_end(registrationForm) }}
+
+			</div>
+			<a class="underline" href="{{ path('app_login') }}">Log in?</a>
+		</div>
+	{% else %}
+		<div class="mt-200[px] ml-[100px] font-bold">
+			You already registered.
+			<a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/" @click="isOpen = false">
+				Home
+			</a>
+			<a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/{{app.user ? 'logout' : 'login'}}" @click="isOpen = false">
+				{{ app.user ? 'Logout' : 'Login' }}
+			</a>
+		</div>
+	{% endif %}
+{% endblock %}
