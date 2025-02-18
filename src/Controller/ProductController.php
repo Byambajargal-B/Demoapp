@@ -17,14 +17,11 @@ final class ProductController extends AbstractController
     #[Route('/product', name: 'product_index')]
     public function index(ProductRepository $repository, Security $security): Response
     {
-        // Get the authenticated user
         $user = $security->getUser();
         
         if ($user) {
-            // Fetch the products associated with the logged-in user
             $products = $repository->findByUserId($user->getId());
         } else {
-            // If no user is authenticated, return an empty array
             $products = [];
         }
 
